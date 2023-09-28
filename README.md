@@ -24,6 +24,7 @@ Our main object is to reduce the total waiting time of drivers in the queue by e
     ```
 - Average waiting time = 21.51
 - Visualization:
+
   ![Random Policy](docs/random_policy.gif)
 
 ### Policy Gradient Agent
@@ -33,6 +34,9 @@ Our main object is to reduce the total waiting time of drivers in the queue by e
   ```
 - Average waiting time = 5.39
 - Visualization:
+
   ![Policy Gradient Agent](docs/policy_gradient_agent.gif)
+
 - Loss:
+
   ![Loss](docs/pg_training_loss_plot.png)
