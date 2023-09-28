@@ -12,8 +12,8 @@ class Logger(logging.Logger):
     def __init__(
             self,
             name: str,
-            level: int | str = logging.INFO,
             logs_dir: Path = None,
+            level: int | str = logging.INFO,
     ) -> None:
         super().__init__(name, level=level)
         # set format
