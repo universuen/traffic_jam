@@ -13,27 +13,29 @@ if __name__ == '__main__':
         'policy_gradient',
         configs.PathConfig().logs,
     )
-    logger.info(configs.PolicyGradientConfig())
+    pg_config = configs.PolicyGradientConfig()
+    logger.info(pg_config)
 
     env = Intersection()
-    model = PolicyModel((configs.PolicyGradientConfig().horizon + 1) * 4, 2)
+    model = PolicyModel((pg_config.horizon + 1) * 4, 2)
     logger.info(f'Model:\n{model}')
-    agent = PolicyGradientAgent(env, model, configs.PolicyGradientConfig().horizon)
+    agent = PolicyGradientAgent(env, model, pg_config.horizon)
 
     with torch.no_grad():
-        _, actions = agent.run_episode(configs.PolicyGradientConfig().max_steps_per_episode, 0)
+        _, actions = agent.run_episode(pg_config.max_steps_per_episode, 0)
         logger.info(f'Random actions: {actions}')
         env.reset(0)
         gif_path = configs.PathConfig().data / 'random_policy.gif'
         reward = env.render_to_gif(gif_path, actions)
-        avg_waiting_time = -reward / configs.PolicyGradientConfig().max_steps_per_episode
+        avg_waiting_time = -reward / pg_config.max_steps_per_episode
         logger.info(f'Random intersection gif is saved at: {gif_path}. Avg time = {avg_waiting_time}')
 
     losses = agent.train(
-        epochs=configs.PolicyGradientConfig().epochs,
-        episodes_per_epoch=configs.PolicyGradientConfig().episodes_per_epoch,
-        max_steps_per_episode=configs.PolicyGradientConfig().max_steps_per_episode,
-        lr=configs.PolicyGradientConfig().lr,
+        epochs=pg_config.epochs,
+        episodes_per_epoch=pg_config.episodes_per_epoch,
+        max_steps_per_episode=pg_config.max_steps_per_episode,
+        lr=pg_config.lr,
+        gamma=pg_config.gamma,
         logger=logger
     )
     # Plot losses vs epochs
@@ -50,11 +52,11 @@ if __name__ == '__main__':
 
     # Save test results
     with torch.no_grad():
-        _, actions = agent.run_episode(configs.PolicyGradientConfig().max_steps_per_episode, 0)
+        _, actions = agent.run_episode(pg_config.max_steps_per_episode, 0)
         logger.info(f'Learned actions: {actions}')
         env.reset(0)
         gif_path = configs.PathConfig().data / 'policy_gradient_agent.gif'
         reward = env.render_to_gif(gif_path, actions)
-        avg_waiting_time = -reward / configs.PolicyGradientConfig().max_steps_per_episode
+        avg_waiting_time = -reward / pg_config.max_steps_per_episode
         logger.info(f'Fine tuned intersection gif is saved at: {gif_path}. Avg time = {avg_waiting_time}')
 

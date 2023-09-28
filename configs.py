@@ -12,6 +12,7 @@ class PolicyGradientConfig:
     episodes_per_epoch: int = 10
     max_steps_per_episode: int = 100
     lr: float = 1e-3
+    gamma: float = 0.99
 
 
 @dataclass
