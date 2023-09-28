@@ -9,8 +9,8 @@ import logging
 class PolicyGradientConfig:
     horizon: int = 50
     epochs: int = 200
-    episodes_per_epoch: int = 30
-    max_steps_per_episode: int = 50
+    episodes_per_epoch: int = 10
+    max_steps_per_episode: int = 100
     lr: float = 1e-3
 
 

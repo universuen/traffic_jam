@@ -1,13 +1,16 @@
 import numpy as np
+import matplotlib
 import matplotlib.colors as mcolors
 import matplotlib.pyplot as plt
 import imageio
 
-import random
 from pathlib import Path
 
 from src.envs.car import Car
 from src.envs.env import Env
+
+
+matplotlib.use('Agg')
 
 
 class Intersection(Env):
@@ -129,32 +132,38 @@ class Intersection(Env):
 
         return grid
 
-    def _generate_img(self, grid_size: int = 100):
+    def _generate_img(self, ax, grid_size: int = 30):
         grid = self.render_to_array(grid_size)
         cm = mcolors.LinearSegmentedColormap.from_list(
             'traffic',
             [(1.0, 1.0, 1.0), (0.7, 0.7, 0.7), (1.0, 0.5, 0.5), (0.5, 1.0, 0.5), (0.5, 0.5, 1.0)],
             N=5
         )
-        plt.imshow(grid, cmap=cm)
-        plt.axis('off')
+        ax.imshow(grid, cmap=cm)
+        ax.axis('off')
 
-    def render_to_image(self, path: str | Path, grid_size: int = 100):
-        self._generate_img(grid_size)
-        plt.title('Intersection State')
-        plt.savefig(path)
+    def render_to_image(self, path: str | Path, grid_size: int = 30):
+        fig, ax = plt.subplots()
+        self._generate_img(ax, grid_size)
+        ax.set_title('Intersection State')
+        fig.savefig(path)
+        plt.close(fig)
 
-    def render_to_gif(self, path: str | Path, actions: list[int], grid_size: int = 100):
+    def render_to_gif(self, path: str | Path, actions: list[int], grid_size: int = 30) -> int:
         images = []
+        total_reward = 0
         for action in actions:
-            self.step(action)
-            self._generate_img(grid_size)
-            fig = plt.gcf()
-            plt.draw()
+            fig, ax = plt.subplots()
+            _, reward = self.step(action)  # Assuming step is defined
+            total_reward += reward
+            self._generate_img(ax, grid_size)
+            fig.canvas.draw()
             image = np.frombuffer(fig.canvas.tostring_rgb(), dtype=np.uint8)
             image = image.reshape(fig.canvas.get_width_height()[::-1] + (3,))
             images.append(image)
-            plt.close()
+            plt.close(fig)
+
         imageio.mimsave(path, images, duration=0.5)
+        return total_reward
 
 
