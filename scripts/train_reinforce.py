@@ -10,7 +10,7 @@ import configs
 
 if __name__ == '__main__':
     logger = Logger(
-        'policy_gradient',
+        'REINFORCE',
         configs.PathConfig().logs,
     )
     pg_config = configs.PolicyGradientConfig()
