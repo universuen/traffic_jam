@@ -14,7 +14,7 @@ class PolicyModel(nn.Module):
             nn.LeakyReLU(0.1),
             nn.Linear(64, 16),
             nn.LeakyReLU(0.1),
-            nn.Linear(16, 2),
+            nn.Linear(16, output_dim),
             nn.LeakyReLU(0.1),
             nn.Softmax(1),
         )

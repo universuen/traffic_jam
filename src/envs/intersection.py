@@ -35,7 +35,7 @@ class Intersection(Env):
         self.cars = {
             k: [
                 Car(i) for i in
-                sorted(np.random.choice(range(1, 101), np.random.randint(5, 52), replace=False))
+                sorted(np.random.choice(range(1, 1001), 200, replace=False))
             ]
             for k in directions
         }

@@ -76,10 +76,10 @@ class PolicyGradientAgent:
                 returns = torch.tensor(returns)
 
                 # Normalize
-                returns = (returns - returns.min()) / (returns.max() - returns.min() + 1e-9)
+                returns = (returns - returns.min()) / (returns.std() + 1e-9)
 
                 # Calculate loss based on saved log probabilities and returns
-                loss += -torch.mean(torch.stack(self.saved_probs) * returns)
+                loss += -torch.sum(torch.stack(self.saved_probs) * returns)
 
                 # Clear saved rewards and probabilities
                 self.saved_probs = []
@@ -94,6 +94,8 @@ class PolicyGradientAgent:
             training_losses.append(loss.item())
             if logger is not None:
                 logger.info(f'Epoch: {e + 1}, training loss: {loss.item()}')
+                # if loss.item() < 1e-9:
+                #     break
 
         return training_losses
 
