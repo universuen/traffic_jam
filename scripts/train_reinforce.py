@@ -27,7 +27,7 @@ if __name__ == '__main__':
         env.reset(0)
         gif_path = configs.PathConfig().data / 'random_policy.gif'
         reward = env.render_to_gif(gif_path, actions)
-        avg_waiting_time = -reward / pg_config.max_steps_per_episode
+        avg_waiting_time = -reward / len(actions)
         logger.info(f'Random intersection gif is saved at: {gif_path}. Avg time = {avg_waiting_time}')
 
     losses = agent.train(
@@ -57,6 +57,6 @@ if __name__ == '__main__':
         env.reset(0)
         gif_path = configs.PathConfig().data / 'policy_gradient_agent.gif'
         reward = env.render_to_gif(gif_path, actions)
-        avg_waiting_time = -reward / pg_config.max_steps_per_episode
+        avg_waiting_time = -reward / len(actions)
         logger.info(f'Fine tuned intersection gif is saved at: {gif_path}. Avg time = {avg_waiting_time}')
 
