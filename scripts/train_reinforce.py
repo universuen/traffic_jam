@@ -59,4 +59,3 @@ if __name__ == '__main__':
         reward = env.render_to_gif(gif_path, actions)
         avg_waiting_time = -reward / len(actions)
         logger.info(f'Fine tuned intersection gif is saved at: {gif_path}. Avg time = {avg_waiting_time}')
-
