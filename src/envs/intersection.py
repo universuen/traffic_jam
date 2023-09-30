@@ -35,7 +35,7 @@ class Intersection(Env):
         self.cars = {
             k: [
                 Car(i) for i in
-                sorted(np.random.choice(range(1, 101), 70, replace=False))
+                sorted(np.random.choice(range(1, 101), np.random.randint(5, 52), replace=False))
             ]
             for k in directions
         }
@@ -154,11 +154,11 @@ class Intersection(Env):
 
     def render_to_gif(self, path: str | Path, actions: list[int], grid_size: int = 30) -> int:
         images = []
-        total_reward = 0
+        rewards = []
         for action in actions:
             fig, ax = plt.subplots()
             _, reward = self.step(action)  # Assuming step is defined
-            total_reward += reward
+            rewards.append(reward)
             self._generate_img(ax, grid_size)
             fig.canvas.draw()
             image = np.frombuffer(fig.canvas.tostring_rgb(), dtype=np.uint8)
@@ -167,6 +167,6 @@ class Intersection(Env):
             plt.close(fig)
 
         imageio.mimsave(path, images, duration=0.5)
-        return total_reward
+        return sum(rewards)
 
 

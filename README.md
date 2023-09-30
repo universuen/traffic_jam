@@ -22,21 +22,25 @@ Our main object is to reduce the total waiting time of drivers in the queue by e
     ```python
     [0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1]
     ```
-- Average waiting time = 21.51
+- Average waiting time = 20.58
 - Visualization:
 
   ![Random Policy](docs/random_policy.gif)
 
-### Policy Gradient Agent
+### REINFORCE Agent
 - Actions: 
   ```python
   [1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0]
   ```
-- Average waiting time = 5.39
+- Average waiting time = 3.67
 - Visualization:
 
-  ![Policy Gradient Agent](docs/policy_gradient_agent.gif)
+  ![Policy Gradient Agent](docs/REINFORCE_agent.gif)
 
 - Loss:
 
-  ![Loss](docs/pg_training_loss_plot.png)
+  ![Loss](docs/reinforce_training_loss_plot.png)
+
+- Average waiting time:
+
+  ![Time](docs/reinforce_time_plot.png)
