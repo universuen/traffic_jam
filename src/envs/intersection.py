@@ -35,7 +35,7 @@ class Intersection(Env):
         self.cars = {
             k: [
                 Car(i) for i in
-                sorted(np.random.choice(range(1, 101), np.random.randint(5, 52), replace=False))
+                sorted(np.random.choice(range(1, 101), 50, replace=False))
             ]
             for k in directions
         }
@@ -67,16 +67,12 @@ class Intersection(Env):
         for direction, light in self.traffic_light.items():
             front_car_position = -1
             for car in self.cars[direction]:
-                if car.position == 0:
-                    if light == 1:
-                        self.cars[direction].pop(0)
-                    else:
-                        waiting_time += 1
+                if car.position == 0 and light == 1:
+                    self.cars[direction].pop(0)
+                elif car.position - front_car_position > 1:
+                    car.move()
                 else:
-                    if car.position - front_car_position > 1:
-                        car.move()
-                    else:
-                        waiting_time += 1
+                    waiting_time += 1
                 front_car_position = car.position
 
         # Compute reward
