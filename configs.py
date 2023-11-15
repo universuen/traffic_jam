@@ -9,11 +9,10 @@ import logging
 class PolicyGradientConfig:
     horizon: int = 50
     epochs: int = 300
-    episodes_per_epoch: int = 10
+    episodes_per_epoch: int = 3
     steps_per_episode: int = 100
-    lr: float = 1e-3
-    gamma: float = 0.99
-
+    lr: float = 5e-4
+    gamma: float = 0.9
 
 @dataclass
 class PathConfig:

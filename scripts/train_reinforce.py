@@ -38,6 +38,7 @@ if __name__ == '__main__':
         gamma=reinforce_config.gamma,
         logger=logger
     )
+    print(time)
     # Plot losses vs epochs
     fig, ax = plt.subplots(figsize=(10, 6))
     ax.plot(losses)
