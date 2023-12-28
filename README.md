@@ -1,7 +1,7 @@
 # Traffic Jam
 Reinforcement learning application in traffic jam scenario.
 
-Our main object is to reduce the total waiting time of drivers in the queue by employing a reinforcement learning model to control the traffic light.
+The main object is to reduce the total waiting time of drivers in the queue by employing a reinforcement learning model to control the traffic light.
 
 ## Main Environment
 - python 3.11
